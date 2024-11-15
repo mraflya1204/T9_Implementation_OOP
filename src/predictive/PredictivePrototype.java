@@ -75,33 +75,33 @@ public class PredictivePrototype {
                 if(isValidWord(word)) {
                 	
                 //Check for each letter and append the corresponding T9 button
-                StringBuffer wordSignature = new StringBuffer();
-	                for (int i = 0; i < word.length(); i++) {
-	        			if(word.charAt(i) == 'a' || word.charAt(i) == 'b' || word.charAt(i) == 'c' ) {
-	        				wordSignature.append("2");
-	        			}
-	        			else if(word.charAt(i) == 'd' || word.charAt(i) == 'e' || word.charAt(i) == 'f' ) {
-	        				wordSignature.append("3");
-	        			}
-	        			else if(word.charAt(i) == 'g' || word.charAt(i) == 'h' || word.charAt(i) == 'i' ) {
-	        				wordSignature.append("4");
-	        			}
-	        			else if(word.charAt(i) == 'j' || word.charAt(i) == 'k' || word.charAt(i) == 'l' ) {
-	        				wordSignature.append("5");
-	        			}
-	        			else if(word.charAt(i) == 'm' || word.charAt(i) == 'n' || word.charAt(i) == 'o' ) {
-	        				wordSignature.append("6");
-	        			}
-	        			else if(word.charAt(i) == 'p' || word.charAt(i) == 'q' || word.charAt(i) == 'r' || word.charAt(i) == 's') {
-	        				wordSignature.append("7");
-	        			}
-	        			else if(word.charAt(i) == 't' || word.charAt(i) == 'u' || word.charAt(i) == 'v' ) {
-	        				wordSignature.append("8");
-	        			}
-	        			else if(word.charAt(i) == 'w' || word.charAt(i) == 'x' || word.charAt(i) == 'y' || word.charAt(i) == 'z') {
-	        				wordSignature.append("9");
-	        			}
-	                }
+	                StringBuffer wordSignature = new StringBuffer();
+		                for (int i = 0; i < word.length(); i++) {
+		        			if(word.charAt(i) == 'a' || word.charAt(i) == 'b' || word.charAt(i) == 'c' ) {
+		        				wordSignature.append("2");
+		        			}
+		        			else if(word.charAt(i) == 'd' || word.charAt(i) == 'e' || word.charAt(i) == 'f' ) {
+		        				wordSignature.append("3");
+		        			}
+		        			else if(word.charAt(i) == 'g' || word.charAt(i) == 'h' || word.charAt(i) == 'i' ) {
+		        				wordSignature.append("4");
+		        			}
+		        			else if(word.charAt(i) == 'j' || word.charAt(i) == 'k' || word.charAt(i) == 'l' ) {
+		        				wordSignature.append("5");
+		        			}
+		        			else if(word.charAt(i) == 'm' || word.charAt(i) == 'n' || word.charAt(i) == 'o' ) {
+		        				wordSignature.append("6");
+		        			}
+		        			else if(word.charAt(i) == 'p' || word.charAt(i) == 'q' || word.charAt(i) == 'r' || word.charAt(i) == 's') {
+		        				wordSignature.append("7");
+		        			}
+		        			else if(word.charAt(i) == 't' || word.charAt(i) == 'u' || word.charAt(i) == 'v' ) {
+		        				wordSignature.append("8");
+		        			}
+		        			else if(word.charAt(i) == 'w' || word.charAt(i) == 'x' || word.charAt(i) == 'y' || word.charAt(i) == 'z') {
+		        				wordSignature.append("9");
+		        			}
+		                }
 	
 	                // If the generated signature matches, add the word to the result set
 	                // Change wordSignature to String first because right now it's a StringBuffer
