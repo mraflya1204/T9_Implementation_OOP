@@ -7,6 +7,7 @@ public class Words2SigProto {
 			if(i == 0) {
 				System.out.print("input : ");
 				System.out.print("[");
+				System.out.print(args[i] + ", ");
 			}
 			else if(i == args.length-1) {
 				System.out.print(args[i] + "]");

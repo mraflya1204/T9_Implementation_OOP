@@ -66,7 +66,7 @@ public class PredictivePrototype {
 		
         try {
         	//Path file is matching the local machine, change it as you need
-        	Scanner scanner = new Scanner(new File("src/predictive/words"));
+        	Scanner scanner = new Scanner(new File("E:\\\\Programs\\\\Others\\\\Java\\\\Workspace\\\\Q2\\\\src\\\\predictive\\\\words"));
             while (scanner.hasNextLine()) {
             	//Read nextline and then convert it all to lowercase
                 String word = scanner.nextLine().toLowerCase();
