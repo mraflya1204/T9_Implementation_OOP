@@ -13,35 +13,7 @@ public class DictionaryTreeImpl implements Dictionary{
     private HashMap<String, List<WordSig>> dictionary;
 	
 	public DictionaryTreeImpl(String filePath) {
-        // Initialize array for storing dictionary entries
-        dictionary = new HashMap<>();
-        try {
-            // Scan and then store each word-signature pair in the array
-            Scanner scanner = new Scanner(new File(filePath));
-            while (scanner.hasNextLine()) {
-                String word = scanner.nextLine().toLowerCase();
-                // If it's a valid word, convert it to a signature using WordSig and add to the array
-                if (isValidWord(word)) {
-                    String signature = wordToSignature(word);
-                    // If the key is not present in the dictionary, add new entry that contains new list of matching words
-                    if (!dictionary.containsKey(signature)) {
-                    	List<WordSig> matchedWords = new ArrayList<WordSig>();
-                    	matchedWords.add(new WordSig(word, signature));
-                    	
-                    	dictionary.put(signature, matchedWords);
-                    }
-                    // If the dictionary does contains one, put the new word inside the list
-                    else {
-                    	dictionary.get(signature).add(new WordSig(word, signature));
-                    }
-                }
-            }
-            scanner.close();
-        } 
-        //Error handler for file not found
-        catch (FileNotFoundException e) {
-            System.err.println("Dictionary file not found. Try fixing the file path.");
-        }
+        
     }
 
     
@@ -112,6 +84,7 @@ public class DictionaryTreeImpl implements Dictionary{
 		}
 		//return the end result in string
 		return inputString.toString();
+		
 	}
 
 }

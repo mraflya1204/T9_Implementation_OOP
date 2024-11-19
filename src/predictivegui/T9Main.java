@@ -34,7 +34,7 @@ public class T9Main implements ActionListener{
 	T9Main() {
 		frame = new JFrame("Predictive T9");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(512, 512);
+		frame.setSize(365, 512);
 		frame.setLayout(null);
 		
 		
