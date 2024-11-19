@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -15,19 +16,20 @@ import predictive.DictionaryMapImpl;
 
 public class T9Main implements ActionListener{
 	//For predictive text part
-	DictionaryMapImpl dictionary = new DictionaryMapImpl("C:\\Users\\rabid\\Github\\T9_Implementation_OOP\\src\\predictive\\words");
-	List<String> currentWordList = new ArrayList<String>();
-	List<String> wordBuffer = new ArrayList<String>();
-	int wordBufferCounter = 0;
+	private DictionaryMapImpl dictionary = new DictionaryMapImpl("C:\\Users\\rabid\\Github\\T9_Implementation_OOP\\src\\predictive\\words");
+	private List<String> currentWordList = new ArrayList<String>();
+	private List<String> wordBuffer = new ArrayList<String>();
+	private int wordBufferCounter = 0;
 	
-	int currentWordListCounter = 0;
-	String currentSignature = new String();
+	private int currentWordListCounter = 0;
+	private String currentSignature = new String();
 	
-	JFrame frame;
-	JTextField textField;
-	JButton[] dialButtons = new JButton[10];
-	JButton starButton, hashtagButton;
-	JPanel buttonPanel;
+	private JFrame frame;
+	private JTextField textField;
+	private JLabel signatureDisplay;
+	private JButton[] dialButtons = new JButton[10];
+	private JButton starButton, hashtagButton;
+	private JPanel buttonPanel;
 	
 	T9Main() {
 		frame = new JFrame("Predictive T9");
@@ -36,17 +38,52 @@ public class T9Main implements ActionListener{
 		frame.setLayout(null);
 		
 		
-		
+		// Text field initialization
 		textField = new JTextField();
 		textField.setBounds(20, 20, 300, 100);
 		textField.setEditable(false);
 		
 		// Button Initialization
-		for (int i = 0; i < 10; ++i) {
-			dialButtons[i] = new JButton(String.valueOf(i));
-			dialButtons[i].addActionListener(this);
-			dialButtons[i].setFocusable(false);
-		}
+		//"<html>" + String.valueOf(0) + "<br>" + "_" + "</html>"
+		dialButtons[0] = new JButton("<html><div text-align:center>0<br/>_</div></html>");
+		dialButtons[0].addActionListener(this);
+		dialButtons[0].setFocusable(false);
+		
+		dialButtons[1] = new JButton(String.valueOf(1));
+		dialButtons[1].addActionListener(this);
+		dialButtons[1].setFocusable(false);
+		
+		dialButtons[2] = new JButton("<html><div text-align:center>2<br/>abc</div></html>");
+		dialButtons[2].addActionListener(this);
+		dialButtons[2].setFocusable(false);
+		
+		dialButtons[3] = new JButton("<html><div text-align:center>3<br/>def</div></html>");
+		dialButtons[3].addActionListener(this);
+		dialButtons[3].setFocusable(false);
+		
+		dialButtons[4] = new JButton("<html><div text-align:center>4<br/>ghi</div></html>");
+		dialButtons[4].addActionListener(this);
+		dialButtons[4].setFocusable(false);
+		
+		dialButtons[5] = new JButton("<html><div text-align:center>5<br/>jkl</div></html>");
+		dialButtons[5].addActionListener(this);
+		dialButtons[5].setFocusable(false);
+		
+		dialButtons[6] = new JButton("<html><div text-align:center>6<br/>mno</div></html>");
+		dialButtons[6].addActionListener(this);
+		dialButtons[6].setFocusable(false);
+		
+		dialButtons[7] = new JButton("<html><div text-align:center>7<br/>pqrs</div></html>");
+		dialButtons[7].addActionListener(this);
+		dialButtons[7].setFocusable(false);
+		
+		dialButtons[8] = new JButton("<html><div text-align:center>8<br/>tuv</div></html>");
+		dialButtons[8].addActionListener(this);
+		dialButtons[8].setFocusable(false);
+		
+		dialButtons[9] = new JButton("<html><div text-align:center>9<br/>wxyz</div></html>");
+		dialButtons[9].addActionListener(this);
+		dialButtons[9].setFocusable(false);
 		
 		starButton = new JButton("*");
 		starButton.addActionListener(this);
@@ -71,11 +108,15 @@ public class T9Main implements ActionListener{
 		buttonPanel.add(hashtagButton);
 		
 		frame.add(textField);
+		
 		frame.add(buttonPanel);
+		
+		frame.add(signatureDisplay);
 		
 		//Make frame visible
 		frame.setVisible(true);
 	}
+	
 	public static void main(String[] args) {
 		T9Main window = new T9Main();
 	}
@@ -84,12 +125,14 @@ public class T9Main implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// Append the word buffer with new blank one, resetting current signature and list
 		if (e.getSource() == dialButtons[0]) {
-			currentSignature = "";
-			currentWordListCounter = 0;
-			currentWordList = null;
-			wordBufferCounter++;
-			wordBuffer.add("");
-			printBuffer();
+			if (wordBuffer.get(wordBufferCounter).length() > 0) {
+				currentSignature = "";
+				currentWordListCounter = 0;
+				currentWordList = null;
+				wordBufferCounter++;
+				wordBuffer.add("");
+				setTextField();
+			}
 		}
 		
 		// Append the current signature with the pressed numbers, 
@@ -117,33 +160,48 @@ public class T9Main implements ActionListener{
 					else
 						wordBuffer.add("");
 				}
-				printBuffer();
+				setTextField();
 			}
 		}
 		
 		// Iterate through the word list of the current signature
 		if (e.getSource() == starButton) {
 			if (!currentWordList.isEmpty()) {
-				// Loop back to the beginning of the list to make sure no access overflow
+				
 				currentWordListCounter++;
+
+				// Loop back to the beginning of the list to make sure no access overflow
 				if (currentWordListCounter > currentWordList.size()-1)
 					currentWordListCounter = 0;
-				textField.setText(currentWordList.get(currentWordListCounter));
+				wordBuffer.set(wordBufferCounter, currentWordList.get(currentWordListCounter));
 			}
+			setTextField();
 		}
 		
-		//WIP
-		
+		//Remove last letter from the current buffer, also removing the last number from the signature
 		if (e.getSource() == hashtagButton) {
-
+			if (!wordBuffer.isEmpty()) {
+				String currentWord = wordBuffer.get(wordBufferCounter);
+				//Update with last letter removed
+				if (wordBuffer.get(wordBufferCounter).length() > 0)
+					wordBuffer.set(wordBufferCounter, currentWord.substring(0, currentWord.length()-1));
+			}
+			
+			if (currentSignature.length() > 0)
+				currentSignature = currentSignature.substring(0, currentSignature.length()-1);
+			
+			currentWordList = dictionary.signatureToWords(currentSignature);
+			currentWordListCounter = 0;
+			setTextField();
 		}
 	}
 	
-	private void printBuffer() {
+	private void setTextField() {
 		String displayBuffer = new String();
 		for (String a : wordBuffer) {
 			displayBuffer += a += " ";
 		}
 		textField.setText(displayBuffer);
 	}
+	
 }
