@@ -111,7 +111,7 @@ public class T9Main implements ActionListener{
 		
 		frame.add(buttonPanel);
 		
-		frame.add(signatureDisplay);
+		//frame.add(signatureDisplay);
 		
 		//Make frame visible
 		frame.setVisible(true);
