@@ -1,11 +1,12 @@
 package predictive.treeimpl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 public class TreeNode {
-	private TreeNode[] children;
+	private TreeNode[] children = new TreeNode[8];
 	private List<String> wordList = new ArrayList<String>();
 	private boolean isRoot;
 	private int nodeDepth;
@@ -23,26 +24,38 @@ public class TreeNode {
 		return isRoot;
 	}
 	
-	public void insertToDictionary(String word) {
+
+	public void insert(String word) {
 		// Get signature
 		String inputSig = wordToSignature(word);
 		TreeNode currentNode = this;
 		int depth = 0;
 		while (inputSig.length() > 0) {
-			if (currentNode.isRoot()) {
-				int toIndex = wordToSignature(inputSig.charAt(0));
-				//If null insert new TreeNode in there;
-				if (currentNode.children[toIndex] == null) {
-					currentNode.children[toIndex] = new TreeNode(++depth);
-				}
+			int toIndex = Integer.valueOf(inputSig.charAt(0)) - '0' - 2;
+			depth++;
+			//If null insert new TreeNode in there;
+			if (currentNode.children[toIndex] == null) {
+				currentNode.children[toIndex] = new TreeNode(depth);
 			}
+			
+			//For one word situation, or at end
+			if (inputSig.length() == 1) {
+				if (!currentNode.children[toIndex].wordList.contains(word)) {
+					currentNode.children[toIndex].wordList.add(word);
+				}
+				
+			}
+			else {
+				currentNode = currentNode.children[toIndex];
+			}
+			inputSig = inputSig.substring(1);
 		}
 	}
 	
 	public String wordToSignature(String word) {
 		//Since it only accept lowercase, we need to convert it to so.
 		word = word.toLowerCase();
-				
+		
 		//We use StringBuffer because we need the string to be mutable (e.g. Modify by adding characters etc)
 		StringBuffer inputString = new StringBuffer();
 			for(int i = 0; i < word.length(); i++) {
@@ -80,7 +93,7 @@ public class TreeNode {
 		return inputString.toString();
 	}
 	
-	public int wordToSignature(char word) {
+	public int oneLetterToSignature(char word) {
 		if(word == 'a' || word == 'b' || word == 'c' ) 
 			return(2);
 		else if(word == 'd' || word == 'e' || word == 'f' )
@@ -98,5 +111,31 @@ public class TreeNode {
 		else if(word == 'w' || word == 'x' || word == 'y' || word == 'z')
 			return(9);
 		else return 0;
+	}
+	
+	public List<String> signatureToWords(String signature) {
+		// Get signature
+		String inputSig = signature;
+		TreeNode currentNode = this;
+		int depth = 0;
+		while (inputSig.length() > 0) {
+			int toIndex = Integer.valueOf(inputSig.charAt(0)) - '0' - 2;
+			
+			
+			if (inputSig.length() == 1) {
+				if (currentNode.children[toIndex] == null) {
+					return new ArrayList<String>();
+				}
+				else return currentNode.children[toIndex].wordList;
+			}
+			else {
+				currentNode = currentNode.children[toIndex];
+			}
+			
+			inputSig = inputSig.substring(1);
+			
+		}
+		
+		return null;
 	}
 }
