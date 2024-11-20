@@ -2,6 +2,8 @@ package predictive.treeimpl;
 
 import java.util.Set;
 
+import predictive.TreeNode;
+
 public class NodeTest {
 	public static void main (String[] args) {
 		TreeNode root = new TreeNode();

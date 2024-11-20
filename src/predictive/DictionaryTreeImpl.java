@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-import predictive.treeimpl.TreeNode;
-
 public class DictionaryTreeImpl extends TreeNode implements DictionaryP3{
 	// Constructor with filepath as an argument (to read the dictionary)
 	public DictionaryTreeImpl(String filePath) {

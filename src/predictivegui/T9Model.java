@@ -96,7 +96,7 @@ public class T9Model {
 	private String formatTextField(List<String> input) {
 		String displayBuffer = new String();
 		for (String a : input) {
-			displayBuffer += a += " ";
+			displayBuffer += a + " ";
 		}
 		return displayBuffer;
 	}
