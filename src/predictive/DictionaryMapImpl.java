@@ -5,12 +5,14 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
-public class DictionaryMapImpl implements Dictionary{
+public class DictionaryMapImpl implements DictionaryP3{
 	// Constructor with filepath as an argument (to read the dictionary)
-    private HashMap<String, List<WordSig>> dictionary;
+    private HashMap<String, Set<WordSig>> dictionary;
 	
 	public DictionaryMapImpl(String filePath) {
         // Initialize array for storing dictionary entries
@@ -25,7 +27,7 @@ public class DictionaryMapImpl implements Dictionary{
                     String signature = wordToSignature(word);
                     // If the key is not present in the dictionary, add new entry that contains new list of matching words
                     if (!dictionary.containsKey(signature)) {
-                    	List<WordSig> matchedWords = new ArrayList<WordSig>();
+                    	HashSet<WordSig> matchedWords = new HashSet<WordSig>();
                     	matchedWords.add(new WordSig(word, signature));
                     	
                     	dictionary.put(signature, matchedWords);
@@ -46,11 +48,11 @@ public class DictionaryMapImpl implements Dictionary{
 
     
 	@Override
-	public List<String> signatureToWords(String signature) {
+	public Set<String> signatureToWords(String signature) {
 		// If the given signature exist as a key in the map, return the list of words
 		if (dictionary.containsKey(signature)) {
-        	List<WordSig> matchingWords = dictionary.get(signature);
-        	List<String> matchingWordsToString = new ArrayList<String>();
+        	Set<WordSig> matchingWords = dictionary.get(signature);
+        	Set<String> matchingWordsToString = new HashSet<String>();
         	for (WordSig current : matchingWords) {
         		//Avoid Duplicates
         		if (!matchingWordsToString.contains(current.getWord()))
@@ -60,7 +62,7 @@ public class DictionaryMapImpl implements Dictionary{
         	return matchingWordsToString;
         }
 		// Else return empty string
-		else return new ArrayList<String>();
+		else return new HashSet<String>();
 	}
 	
 	public boolean isValidWord(String word) {
