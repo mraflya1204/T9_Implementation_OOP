@@ -3,11 +3,13 @@ package predictive.treeimpl;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class TreeNode {
 	private TreeNode[] children = new TreeNode[8];
-	private List<String> wordList = new ArrayList<String>();
+	private Set<String> wordList = new HashSet<String>();
 	private boolean isRoot;
 	private int nodeDepth;
 	
@@ -113,18 +115,17 @@ public class TreeNode {
 		else return 0;
 	}
 	
-	public List<String> signatureToWords(String signature) {
+	public Set<String> signatureToWords(String signature) {
 		// Get signature
 		String inputSig = signature;
 		TreeNode currentNode = this;
-		int depth = 0;
 		while (inputSig.length() > 0) {
 			int toIndex = Integer.valueOf(inputSig.charAt(0)) - '0' - 2;
 			
 			
 			if (inputSig.length() == 1) {
 				if (currentNode.children[toIndex] == null) {
-					return new ArrayList<String>();
+					return new HashSet<String>();
 				}
 				else return currentNode.children[toIndex].wordList;
 			}

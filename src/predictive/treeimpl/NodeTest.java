@@ -1,6 +1,6 @@
 package predictive.treeimpl;
 
-import java.util.List;
+import java.util.Set;
 
 public class NodeTest {
 	public static void main (String[] args) {
@@ -9,7 +9,7 @@ public class NodeTest {
 		root.insert("ar");
 		root.insert("ara");
 		
-		List<String> dongo = root.signatureToWords("272");
+		Set<String> dongo = root.signatureToWords("272");
 		
 		if (!dongo.isEmpty()) {
 			for (String a : dongo) {
